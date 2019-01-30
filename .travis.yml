@@ -1,0 +1,29 @@
+notifications:
+  email: false
+
+dist: xenial
+
+language: python
+python:
+  - '3.7'
+
+env:
+  - PYVER=37
+
+script:
+  - pip install codecov
+  - coverage run -m test
+
+after_success:
+  - codecov
+
+deploy:
+  provider: pypi
+  user: 'isac322'
+  password:
+    secure: 'kAmM0fbtp4diwInGkX0QbT6eSfQuWAv89xYQtRNazatqjmaEQo3unQCj8SegxfGqNxzYCGJJHUzUCtWS2v3xxpzU2DsuIR1q58QmYAgy39kSc+nhDeE6SJExTvlAkB6P8gvfSfjuv6wjl/4HufURfZAXJUmNcGxhvb+Q/XicrIx60SzACW0V/DNnPWoY2jocdnipBo4pe41c11wqTrkzRMRgVBr+ZA58HIRWbYfMfkLaasVQq2FihjAXCegVbxnAsr3HeUx7+1FCYFgjP7MJMB7ycmvbQdFnX7fFbHVlJjAUPPzwgByKZiw1i2quWv6twJ9Cc8LrsAGyDsxv3EL3DTQsBcMuEwqXhHKW8PhkueXbXffzt6r5IbQLP3DPCVHhzkieSK0O2AsbR64dhkbXDcovo/s7xMj8yfxpl9gEMKdd6K9PolRHKJW/QDAA1b/GCbiGo1pq2HsYF0RnbrVSIykcgcrRQbjdDDvACB3tGk92j4u/TWebShqdJ/LSVEuvXdZEDnppHRexZHNsK2MuKGPFDlYDggj4VroEP+cmK31k1UoEBvw46p9CkHxYWxYtEVpe13qryexu+NB3ecLVOOOfDAXnj4/zr7hIORMGIXtWKB1UM+5jTxJdexgBy9IT4S6rF2Qi5eI44/vUbbxVQlQvsiiryAwClmIFw4ovs6g='
+  on:
+    all_branches: true
+  distributions: 'sdist bdist_wheel --python-tag=py${PYVER}'
+  skip_cleanup: true
+  skip_existing: true
